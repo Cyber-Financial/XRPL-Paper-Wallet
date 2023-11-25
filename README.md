@@ -33,20 +33,23 @@ rQw1WxHsHDygHWYbkDpCtjNAcwagepMMx6
   2. Verify the SHA256 Checksum from any online tool (https://emn178.github.io/online-tools/sha256_checksum.html)
   3. SHA256 Checksum: 7742cb20ea083b849898cd2a551d6e142d856d2e021036bfa17babfbb162ffcd
   4. Disconnect Wifi/Ethernet, your computer should be completely offline!
-  5. Double click the account-generator.html and it will open in default broswer
-  6. Click Green Button - Generate Wallet - Your Address and Seed Phrase will been shown
-  7. WRITE THIS SEED PHRASE DOWN ON PAPER AND MAKE COPIES!
-  8. DO NOT PUT SEED PHRASE ONLINE OR SHARE THEM WITH ANYONE!
-  9. YOU MUST HAVE SEED PHRASE TO TRANSFER XRP TO ANY OTHER ADDRESS!
+  5. Double click the account-generator.html and it will open in default browser, to ensure no logging and extra privacy
+  6. Strongly recommend using a private browser such as Incognito Mode on Google Chrome, to ensure no logging of forms
+  7. Click Green Button - Generate Wallet - Your Address and Seed Phrase will been shown
+  8. WRITE THIS SEED PHRASE DOWN ON PAPER AND MAKE COPIES!
+  9. DO NOT PUT SEED PHRASE ONLINE OR SHARE THEM WITH ANYONE!
+  10. YOU MUST HAVE SEED PHRASE TO TRANSFER XRP TO ANY OTHER ADDRESS!
 
 ## XRP Transfer Tool
   1. Save the transfer-xrp.html file to your computer.
   2. Verify the SHA256 Checksum from any online tool (https://emn178.github.io/online-tools/sha256_checksum.html)
   3. SHA256 Checksum: a641db55369e0ce68f585cc3565772635dd06d8639c5b96dfe33a8a4c8f552f3
-  4. Highly Recommend Using WSS:// (SECURED Websocket) and not WS:// since you are signing with your Seed Phrase
-  5. Input Seed Phrase, Amount of XRP, Fee, Destination Address and Destination Tag
-  6. If you are sending to an exchange, most likely they will require Destination Tag!
-  7. Click Green Button - Transfer XRP
-  8. The Transfer XRP button will turn color orange and button will be disabled until a Result is received
-  9. An alert will pop up telling you if the transfer was successfully submitted
-  10. Transfer XRP button will turn green if success and red if failed
+  4. Double click the transfer-xrp.html and it will open in default browser
+  5. Strongly recommend using a private browser such as Incognito Mode on Google Chrome, to ensure no logging and extra privacy
+  6. Strongly Recommend Using WSS:// (SECURED Websocket) and not WS:// since you are signing with your Seed Phrase
+  7. Input Seed Phrase, Amount of XRP, Fee, Destination Address and Destination Tag
+  8. If you are sending to an exchange, most likely they will require Destination Tag!
+  9. Click Green Button - Transfer XRP
+  10. The Transfer XRP button will turn color orange and button will be disabled until a Result is received
+  11. An alert will pop up telling you if the transfer was successfully submitted
+  12. Transfer XRP button will turn green if success and red if failed
