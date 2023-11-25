@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XRP Transfer Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>XRP Transfer Tool</h1>
+        
+        <div class="input-group">
+            <label for="serverInput">Public XRPL Server Websocket: (Find public servers <a href="https://xrpl.org/public-servers.html" target="_blank">here</a>)</label>
+            <input type="text" id="serverInput" placeholder="Enter Ripple server URL" value="wss://testnet.xrpl-labs.com/">
+            
+        </div>
+
+        <div class="input-group">
+            <label for="seedInput">Seed Phrase (Secret Key):</label>
+            <input type="password" id="seedInput" placeholder="Enter your seed phrase" value="sEdTQ2e1VGoXKqgYME6mEvbgfPLN1u6">
+        </div>
+
+        <div class="input-group">
+            <label for="amountInput">Amount of XRP:</label>
+            <input type="number" id="amountInput" placeholder="Amount in XRP">
+        </div>
+
+        <div class="input-group">
+            <label for="feeInput">Fee (XRP):</label>
+            <input type="text" id="feeInput" value="0.000010" readonly>
+        </div>
+
+        <div class="input-group">
+            <label for="destinationInput">Destination Address:</label>
+            <input type="text" id="destinationInput" placeholder="Destination Address" value="rhQG8TzVusWG9UqiC7Uzieqk5RTh9dntBD">
+        </div>
+
+        <div class="input-group">
+            <label for="tagInput">Destination Tag (optional):</label>
+            <input type="number" id="tagInput" placeholder="Destination Tag - Most Exchanges Require This!">
+        </div>
+
+        <button id="transferBtn" class="button">Transfer XRP</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xrpl@2.13.0/build/xrpl-latest-min.min.js"></script>
+    <script>
+        document.getElementById('transferBtn').addEventListener('click', function() {
+            this.style.backgroundColor = 'orange'; // Button turns orange when clicked
+            this.disabled = true;
+            transferXRP(this);
+        });
+
+        async function transferXRP(button) {
+            // IMPORTANT: This function handles sensitive data (seed phrase).
+            // Ensure the user's environment is secure and the seed phrase is not exposed or stored.
+
+            const server = document.getElementById('serverInput').value;
+            const seed = document.getElementById('seedInput').value; // Handle with extreme caution
+            const amount = document.getElementById('amountInput').value;
+            const fee = document.getElementById('feeInput').value;
+            const destination = document.getElementById('destinationInput').value;
+            const tag = parseInt(document.getElementById('tagInput').value, 10) || undefined;
+
+            try {
+                const api = new xrpl.Client(server);
+                await api.connect();
+
+                const { Wallet } = xrpl;
+                const wallet = Wallet.fromSeed(seed);
+                // await api.fundWallet(wallet);
+                var balance = (await api.getXrpBalance(wallet.address));
+                console.log(balance);
+
+                const preparedTx = await api.autofill({
+                    TransactionType: "Payment",
+                    Account: wallet.classicAddress,
+                    Amount: xrpl.xrpToDrops(amount),
+                    Destination: destination,
+                    Fee: xrpl.xrpToDrops(fee),
+                    ...(tag && { DestinationTag: tag })
+                });
+
+                const signedTx = wallet.sign(preparedTx);
+                const txResult = await api.submitAndWait(signedTx.tx_blob);
+
+                console.log(txResult);
+                button.style.backgroundColor = 'green'; // Button turns green on success
+                alert("Transaction submitted successfully!");
+
+                balance = (await api.getXrpBalance(wallet.address));
+                destBalance =  (await api.getXrpBalance(destination));
+                console.log(balance, destBalance);
+
+                await api.disconnect();
+
+                button.disabled = false;
+            } catch (error) {
+                console.error("Error in transaction:", error);
+                button.style.backgroundColor = 'red'; // Button turns red on error
+                alert("Failed to submit transaction. Please check your inputs.");
+                button.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

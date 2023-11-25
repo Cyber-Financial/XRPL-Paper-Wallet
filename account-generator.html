@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XRP Wallet Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+
+        #generateWalletBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+
+        #walletDetails {
+            display: flex;
+            justify-content: space-around;
+            background-color: #fff;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+        }
+
+        .qr-code {
+            margin-top: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>XRP Wallet Generator</h1>
+    <button id="generateWalletBtn">Generate Wallet</button>
+    <div id="walletDetails" style="display:none;">
+        <div class="detail-section">
+            <p><strong>Wallet Address:</strong> <span id="walletAddress"></span></p>
+            <div id="qrCodeAddress" class="qr-code"></div>
+        </div>
+        <div class="detail-section">
+            <p><strong>Seed Phrase (Secret Key):</strong> <span id="walletSecret"></span></p>
+            <div id="qrCodeSecret" class="qr-code"></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/xrpl@2.13.0/build/xrpl-latest-min.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        document.getElementById('generateWalletBtn').addEventListener('click', function() {
+            generateXRPWallet();
+        });
+
+        function generateXRPWallet() {
+            try {
+                const wallet = xrpl.Wallet.generate();
+                const address = wallet.classicAddress;
+                const secret = wallet.seed;
+
+                document.getElementById('walletAddress').textContent = address;
+                document.getElementById('walletSecret').textContent = secret;
+
+                // Clear previous QR codes
+                document.getElementById('qrCodeAddress').innerHTML = '';
+                document.getElementById('qrCodeSecret').innerHTML = '';
+
+                // Generate QR codes
+                new QRCode(document.getElementById('qrCodeAddress'), address);
+                new QRCode(document.getElementById('qrCodeSecret'), secret);
+
+                document.getElementById('walletDetails').style.display = 'flex';
+            } catch (error) {
+                console.error("Error generating XRP wallet:", error);
+                alert("Failed to generate wallet. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>
