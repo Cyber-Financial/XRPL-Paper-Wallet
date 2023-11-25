@@ -26,7 +26,7 @@ The author(s) reserve the right to change these terms at any time without prior 
 
 ## Donations
 Accepting donations in XRP at the following address:
-r9j1zsxefuupRdeoV1YgGbedMXLQwQnHQS
+rQw1WxHsHDygHWYbkDpCtjNAcwagepMMx6
 
 ## Account Generator
   1. Save the account-generator.html file to your computer.
