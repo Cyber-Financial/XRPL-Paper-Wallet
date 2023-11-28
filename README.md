@@ -54,8 +54,8 @@ rQw1WxHsHDygHWYbkDpCtjNAcwagepMMx6
   11. An alert will pop up telling you if the transfer was successfully submitted
   12. Transfer XRP button will turn green if success and red if failed
   13. If the XRPL starts being bogged down with network traffic:
-    a. Go to xrpscan.com and get an idea of the average fee per ledger divided by number transactions
-    b. Increase the fee in the transfer-xrp.html tool to meet the average or maybe slightly higher so your transaction will execute
+      1. Go to [xrpscan.com](https://xrpscan.com/) and get an idea of the average burned XRP per ledger divided by number transactions to get average XRP burned per transaction
+      2. Increase the fee in the transfer-xrp.html tool to meet the average or maybe slightly higher so your transaction will execute
 
 ## XRP Transfer Tool Testnet - Testing Tool
   1. You don't need to use this, it was simple to ensure transfer-xrp.html would work correctly
