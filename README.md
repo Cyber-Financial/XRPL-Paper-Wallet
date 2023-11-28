@@ -43,7 +43,7 @@ rQw1WxHsHDygHWYbkDpCtjNAcwagepMMx6
 ## XRP Transfer Tool
   1. Save the transfer-xrp.html file to your computer.
   2. Verify the SHA256 Checksum from any online tool (https://emn178.github.io/online-tools/sha256_checksum.html)
-  3. SHA256 Checksum: a641db55369e0ce68f585cc3565772635dd06d8639c5b96dfe33a8a4c8f552f3
+  3. SHA256 Checksum: c4cab7a0b269830699bf9e2cf9d7462605e2ad0505d8af703621be3c7463a9d8
   4. Double click the transfer-xrp.html and it will open in default browser
   5. Strongly recommend using a private browser such as Incognito Mode on Google Chrome, to ensure no logging and extra privacy
   6. Strongly Recommend Using WSS:// (SECURED Websocket) and not WS:// since you are signing with your Seed Phrase
@@ -53,3 +53,7 @@ rQw1WxHsHDygHWYbkDpCtjNAcwagepMMx6
   10. The Transfer XRP button will turn color orange and button will be disabled until a Result is received
   11. An alert will pop up telling you if the transfer was successfully submitted
   12. Transfer XRP button will turn green if success and red if failed
+
+## XRP Transfer Tool Testnet - Testing Tool
+  1. You don't need to use this, it was simple to ensure transfer-xrp.html would work correctly
+  2. There is some commented code such as await api.fundWallet(wallet); which you can use to fund your wallet on the testnet
